@@ -7,7 +7,7 @@ const cspHeader = `
   font-src 'self';
   object-src 'none';
   base-uri 'self';
-  form-action 'self';
+  form-action 'self';  script-src-elem 'self' 'unsafe-inline' https://vercel.live;
   frame-ancestors 'none';
   upgrade-insecure-requests;
 `;
