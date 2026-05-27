@@ -52,11 +52,10 @@ function LoginFormContent({
 
   // Google OAuth code exchange mutation
   const loginWithGoogleMutation = trpc.auth.loginWithGoogle.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data.success) {
         toast.success(`Welcome back, ${data.user.name}!`)
-        push("/dashboard")
-        refresh()
+        await push("/dashboard")
       } else {
         toast.error("Google authentication failed. Please try again.")
       }
@@ -96,11 +95,10 @@ function LoginFormContent({
 
   // Credential Login mutation
   const loginMutation = trpc.auth.loginWithEmailAndPassword.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data.success) {
         toast.success(`Welcome back, ${data.user.name}!`)
-        push("/dashboard")
-        refresh()
+        await push("/dashboard")
       }
     },
     onError: (error) => {
