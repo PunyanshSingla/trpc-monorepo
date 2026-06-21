@@ -1,3 +1,4 @@
+
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
@@ -6,7 +7,9 @@ export const env = createEnv({
    * Specify your server-side environment variables schema here. This way you can ensure the app
    * isn't built with invalid env vars.
    */
-  server: {},
+  server: {
+    BETTER_AUTH_URL: z.string().default("http://localhost:8000"),
+  },
 
   /**
    * Specify your client-side environment variables schema here. This way you can ensure the app
@@ -22,6 +25,7 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
   /**

@@ -1,11 +1,13 @@
 import express from "express";
 import { logger } from "@repo/logger";
 import cors from "cors";
+import { toNodeHandler } from "better-auth/node";
 
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { generateOpenApiDocument, createOpenApiExpressMiddleware } from "trpc-to-openapi";
 import { apiReference } from "@scalar/express-api-reference";
 
+import { auth } from "@repo/auth";
 import { serverRouter, createContext } from "@repo/trpc/server";
 
 import { env } from "./env";
@@ -21,9 +23,12 @@ if (env.NODE_ENV !== "prod") {
   app.use(
     cors({
       origin: "*",
+      credentials: true,
     }),
   );
 }
+
+app.all("/api/auth/*", toNodeHandler(auth));
 
 app.use(express.json());
 
